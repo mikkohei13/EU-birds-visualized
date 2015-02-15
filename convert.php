@@ -2,12 +2,15 @@
 header('Content-Type: text/html; charset=utf-8');
 
 /*
-add species name without ssp name??
+FR and NL data missing
+etc.biodiversity@mnhn.fr
+helpdesk@eionet.europa.eu
+
 */
 
 echo "<pre>";
 
-$xml = simplexml_load_file("data/FI_birds_reports.xml");
+$xml = simplexml_load_file("data/BE_birds_reports-1452-9721.xml");
 
 $i = 0;
 foreach($xml->bird_report as $bird)
@@ -27,6 +30,8 @@ foreach($xml->bird_report as $bird)
 		$data[$i][$name] = $value;
 
 	}
+	$data[$i]['speciesname_cleaned'] = returnSpeciesName($data[$i]['speciesname']);
+
 	$data[$i]['population_average_size'] = ($data[$i]['population_minimum_size'] + $data[$i]['population_maximum_size']) / 2;
 	$data[$i]['population_trend_magnitude_average'] = ($data[$i]['population_trend_magnitude_min'] + $data[$i]['population_trend_magnitude_max']) / 2;
 	$data[$i]['population_trend_long_magnitude_average'] = ($data[$i]['population_trend_long_magnitude_min'] + $data[$i]['population_trend_long_magnitude_max']) / 2;
@@ -45,6 +50,13 @@ foreach ($data as $no => $speciesData)
 }
 
 echo "\n\nend";
+
+function returnSpeciesName($taxon)
+{
+	$parts = explode(" ", $taxon);
+	$species = $parts[0] . " " . $parts[1];
+	return $species;
+}
 
 /*
 $this->routesXMLarray[$DocumentID] = $xml;
