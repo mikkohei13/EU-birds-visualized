@@ -5,9 +5,6 @@ header('Content-Type: text/html; charset=utf-8');
 FR and NL data missing
 etc.biodiversity@mnhn.fr
 helpdesk@eionet.europa.eu
-
-escape special chars in content
-
 */
 
 require_once 'convert_fields.php';
@@ -16,6 +13,7 @@ echo "<pre>";
 
 $xml = simplexml_load_file("data/CY_birds_reports-14331-13918.xml");
 
+// Create dat
 $i = 0;
 foreach($xml->bird_report as $bird)
 {
