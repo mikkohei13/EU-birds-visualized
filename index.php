@@ -21,10 +21,51 @@
     </head>
     <body>
 
-        <div id="map" style="width: 800px; height: 900px; border: 1px solid red;"></div>
+        <div id="map" style="width: 778px; height: 900px; border: 4px solid #165878;"></div>
         <script>
+
+        var data = {
+          "HU": 0,
+          "NL": 128,
+          "FI": 64,
+          "DE": 32,
+          "ES": 16,
+          "SE": 8,
+          "DK": 4,
+          "EE": 2,
+          "LV": 1,
+          "LT": 160,
+          "PL": 150,
+          "MT": 140,
+          "RO": 130,
+          "BE": 120,
+          "DE": 110,
+          "GB": 100,
+          "BE": 90,
+          "IT": 80,
+          "GR": 70,
+          "AT": 60,
+          "SK": 50,
+          "CZ": 40,
+          "IE": 30,
+          "FR": 20,
+          "PT": 10,
+        };
         $(function(){
-          $('#map').vectorMap({map: 'europe_merc_en'});
+            $('#map').vectorMap({
+                map: 'europe_merc_en',
+                backgroundColor: '#a5cbd7', //'#4b96af',
+                series: {
+                    regions: [{
+                        values: data,
+                        scale: ['#e6e696', '#003700'],
+                        normalizeFunction: 'linear'
+                    }]
+                },
+                onRegionTipShow: function(e, el, code) {
+                    el.html(el.html()+': '+data[code]);
+                }
+            });
         });
         </script>
 
