@@ -8,20 +8,27 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-        <link rel="stylesheet" href="css/normalize.min.css">
+        <link rel="stylesheet" href="css/vendor/normalize.min.css">
+        <link rel="stylesheet" href="css/vendor/jquery-jvectormap-2.0.1.css">
         <link rel="stylesheet" href="css/main.css">
 
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+
+        <script src="js/vendor/jquery-1.11.2.min.js"></script>
+        <script src="js/vendor/jquery-jvectormap-2.0.1.min.js"></script>
+        <script src="js/vendor/jquery-jvectormap-europe-merc-en.js"></script>
+        <script src="js/main.js"></script>
     </head>
     <body>
 
-        <p>Hello world! This is HTML5 Boilerplate.</p>
+        <div id="map" style="width: 800px; height: 900px; border: 1px solid red;"></div>
+        <script>
+        $(function(){
+          $('#map').vectorMap({map: 'europe_merc_en'});
+        });
+        </script>
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
 
-        <script src="js/plugins.js"></script>
-        <script src="js/main.js"></script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
