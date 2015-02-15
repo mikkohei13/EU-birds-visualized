@@ -6,11 +6,15 @@ FR and NL data missing
 etc.biodiversity@mnhn.fr
 helpdesk@eionet.europa.eu
 
+escape special chars in content
+
 */
+
+require_once 'convert_fields.php';
 
 echo "<pre>";
 
-$xml = simplexml_load_file("data/BE_birds_reports-1452-9721.xml");
+$xml = simplexml_load_file("data/CY_birds_reports-14331-13918.xml");
 
 $i = 0;
 foreach($xml->bird_report as $bird)
@@ -18,7 +22,11 @@ foreach($xml->bird_report as $bird)
 	foreach ($bird->children() as $value)
 	{
 	    $name = $value->getName(); 
-//		echo $aname . " /// " . $value . "\n";
+
+	    if (! $fields[$name])
+	    {
+	    	continue;
+	    }
 
 		$name = trim((string) $name);
 		$value = trim((string) $value);
@@ -30,6 +38,7 @@ foreach($xml->bird_report as $bird)
 		$data[$i][$name] = $value;
 
 	}
+
 	$data[$i]['speciesname_cleaned'] = returnSpeciesName($data[$i]['speciesname']);
 
 	$data[$i]['population_average_size'] = ($data[$i]['population_minimum_size'] + $data[$i]['population_maximum_size']) / 2;
@@ -42,14 +51,26 @@ foreach($xml->bird_report as $bird)
 	$i++;
 }
 
-print_r ($data);
+//print_r ($data);
 
+// Create SQL INSERT
 foreach ($data as $no => $speciesData)
 {
-	echo $speciesData['speciesname'] . "\n";
+//	echo $speciesData['speciesname'] . "\n";
+
+	$keys = "";
+	$values = "";
+	foreach ($speciesData as $key => $value)
+	{
+		$keys = $keys . ", " . mysql_escape_string($key);
+		$values = $values . ", '" . mysql_escape_string($value) . "'";
+	}
+	$keys = trim($keys, ", ");
+	$values = trim($values, ", ");	
+	echo "INSERT INTO eub_birds ($keys) VALUES ($values);\n";
 }
 
-echo "\n\nend";
+//echo "\n\nend";
 
 function returnSpeciesName($taxon)
 {
