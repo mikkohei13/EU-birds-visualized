@@ -25,7 +25,7 @@
         <script>
 
         <?php
-//        $speciesDirty = $_GET['species'];
+        $speciesDirty = str_replace(" ", "%20", $_GET['species']);
 
 //        $uri_parts = explode('?', $_SERVER['REQUEST_URI'], 2);
 
@@ -59,11 +59,17 @@
 
  //       echo $url;
 
-        include_once "db/index.php";
+ //       include_once "db/index.php";
+
+        $baseURLtemp = explode("?", $_SERVER["REQUEST_URI"]);
+        $baseURL = "http://" . $_SERVER["SERVER_NAME"] . $baseURLtemp[0];
+        $json = file_get_contents($baseURL . "db/?type=population&species=" . $speciesDirty);
+        $data = json_decode($json, TRUE);
+        //print_r ($json);
 
       ?>
 
-//        var data = <?php echo "X/" . $json . "/Y"; ?>;
+        var data = <?php echo $json; ?>;
 
         $(function(){
             $('#map').vectorMap({
