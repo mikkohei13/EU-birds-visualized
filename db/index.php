@@ -1,15 +1,19 @@
-<pre>
 <?php
+header('Content-Type: application/json; charset=utf-8');
+
 require_once "connection.php";
 
 $db = new Db();
 
 // Quote and escape form submitted values
-//$name = $db -> quote($_POST['username']);
-//$email = $db -> quote($_POST['email']);
+$species = $db -> quote($_GET['species']);
+$species = str_replace("%20", " ", $species);
 
-$rows = $db -> select("SELECT * FROM `eub_birds` LIMIT 1");
+$sql = "SELECT * FROM eub_birds WHERE speciesname_cleaned LIKE $species";
+//echo $sql;
+$rows = $db -> select($sql);
 
-print_r ($rows);
+$json = json_encode($rows);
+echo $json;
 
-echo "\nEND";
+//print_r ($rows);
