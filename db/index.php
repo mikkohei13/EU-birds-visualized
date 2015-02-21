@@ -25,6 +25,14 @@ if ("population" == $typeDirty)
 		$data[$arr['country']] = $arr['population_average_size'];
 	}
 }
+// SPECIES
+elseif ("species" == $typeDirty)
+{
+	$sql = "SELECT * FROM eub_birds WHERE speciesname_cleaned LIKE $species AND season LIKE 'B' AND country LIKE 'FI' LIMIT 1";
+
+	$rows = $db -> select($sql);
+	$data = $rows[0];
+}
 // ALL
 else
 {
@@ -33,7 +41,7 @@ else
 	$data = $rows;
 }
 
-//echo $sql;
+//echo $sql; // debug
 
 $json = json_encode($data);
 echo $json;
