@@ -12,18 +12,38 @@ $species = $db -> quote($_GET['species']);
 $species = str_replace("%20", " ", $species);
 
 $typeDirty = $_GET['type'];
-$data = Array();
+$mapdata = Array();
 
 // POPULATION
 if ("population" == $typeDirty)
 {
-	$sql = "SELECT country, population_average_size FROM eub_birds WHERE speciesname_cleaned LIKE $species AND season LIKE 'B'";
+	$sql = "
+	SELECT
+		country, 
+		speciesname,
+		common_speciesname,
+		speciesname_cleaned,
+		population_average_size, 
+		population_trend_magnitude_average,
+	    population_trend_long_magnitude_average,
+	    range_trend_magnitude_average,
+	    range_trend_long_magnitude_average,
+	    spa_population_average
+	FROM
+		eub_birds 
+	WHERE
+		speciesname_cleaned LIKE $species 
+	AND season LIKE 'B'
+	";
 
 	$rows = $db -> select($sql);
-	foreach ($rows as $key => $arr)
+
+	foreach ($rows as $rowNumber => $arr)
 	{
-		$data[$arr['country']] = $arr['population_average_size'];
+		$mapdata[$arr['country']] = $arr['population_average_size'];
+		$rawdata[$arr['country']] = $arr;
 	}
+
 }
 // SPECIES
 elseif ("species" == $typeDirty)
@@ -42,6 +62,9 @@ else
 }
 
 //echo $sql; // debug
+
+$data['rawdata'] = $rawdata;
+$data['mapdata'] = $mapdata;
 
 $json = json_encode($data);
 echo $json;

@@ -38,12 +38,13 @@ print_r ($result);
 $baseURLtemp = explode("?", $_SERVER["REQUEST_URI"]);
 $baseURL = "http://" . $_SERVER["SERVER_NAME"] . $baseURLtemp[0];
 
-$mapJson = file_get_contents($baseURL . "db/?type=population&species=" . $speciesDirty);
+$json = file_get_contents($baseURL . "db/?type=population&species=" . $speciesDirty);
+$data = json_decode($json, TRUE);
 
-$speciesJson = file_get_contents($baseURL . "db/?type=species&species=" . $speciesDirty);
-$speciesData = json_decode($speciesJson, TRUE);
+$rawData = $data['rawdata'];
+$mapJson = json_encode($data['mapdata']);
 
-print_r ($speciesData); // debug
+//print_r ($speciesData); // debug
 
 ?>
 <!doctype html>
@@ -69,7 +70,8 @@ print_r ($speciesData); // debug
     </head>
     <body>
 
-<h1><?php echo $speciesData['common_speciesname'] . " (<em>" . $speciesData['speciesname'] . "</em>)"; ?></h1>
+        <h1><?php echo $rawData['FI']['common_speciesname'] . " (<em>" . $rawData['FI']['speciesname'] . "</em>)"; ?></h1>
+        <h2><?php echo "AT: " . $rawData['AT']['common_speciesname'] . ", BG: " . $rawData['BG']['common_speciesname']; ?></h2>
 
         <div id="map" style="width: 778px; height: 900px; border: 4px solid #165878;"></div>
         <script>
