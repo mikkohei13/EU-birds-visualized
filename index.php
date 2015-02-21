@@ -24,13 +24,47 @@
         <div id="map" style="width: 778px; height: 900px; border: 4px solid #165878;"></div>
         <script>
 
-        var data = {
-FI: "1800000",
-AT: "850000",
-BE: "300000",
-BG: "1050000",
-CY: "100000"
-};
+        <?php
+//        $speciesDirty = $_GET['species'];
+
+//        $uri_parts = explode('?', $_SERVER['REQUEST_URI'], 2);
+
+//        $url = 'http://' . $_SERVER['HTTP_HOST'] . $uri_parts[0];
+//        $url = $url . "db/?species=" . $speciesDirty . "&type=population";
+
+        // This works sometimes, but not with names with spaces or %20
+        /*
+        $url = "http://localhost" . $uri_parts[0] . "db/?species=" . $speciesDirty . "&type=population";
+        $json = file_get_contents($url);
+        */
+
+        /*
+        // This doesn't work
+        //  Initiate curl
+        $ch = curl_init();
+        // Disable SSL verification
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        // Will return the response, if false it print the response
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        // Set the url
+        curl_setopt($ch, CURLOPT_URL,$url);
+        // Execute
+        $result=curl_exec($ch);
+        // Closing
+        curl_close($ch);
+        var_dump(json_decode($result, true));
+        echo $result;
+        print_r ($result);
+        */
+
+ //       echo $url;
+
+        include_once "db/index.php";
+
+      ?>
+
+//        var data = <?php echo "X/" . $json . "/Y"; ?>;
+
         $(function(){
             $('#map').vectorMap({
                 map: 'europe_merc_en',

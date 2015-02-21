@@ -1,5 +1,7 @@
 <?php
-header('Content-Type: application/json; charset=utf-8');
+//header('Content-Type: application/json; charset=utf-8');
+//header('Content-Type: text/plain; charset=utf-8');
+//exit("DEEBEE");
 
 require_once "connection.php";
 
@@ -31,6 +33,6 @@ else
 //echo $sql;
 
 $json = json_encode($data);
-echo $json;
+echo "var data = " . $json . ";";
 
 //print_r ($rows);
