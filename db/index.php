@@ -11,54 +11,34 @@ $db = new Db();
 $species = $db -> quote($_GET['species']);
 $species = str_replace("%20", " ", $species);
 
-$typeDirty = $_GET['type'];
 $mapdata = Array();
 
-// POPULATION
-if ("population" == $typeDirty)
+
+$sql = "
+SELECT
+	country, 
+	speciesname,
+	common_speciesname,
+	speciesname_cleaned,
+	population_average_size, 
+	population_trend_magnitude_average,
+    population_trend_long_magnitude_average,
+    range_trend_magnitude_average,
+    range_trend_long_magnitude_average,
+    spa_population_average
+FROM
+	eub_birds 
+WHERE
+	speciesname_cleaned LIKE $species 
+AND season LIKE 'B'
+";
+
+$rows = $db -> select($sql);
+
+foreach ($rows as $rowNumber => $arr)
 {
-	$sql = "
-	SELECT
-		country, 
-		speciesname,
-		common_speciesname,
-		speciesname_cleaned,
-		population_average_size, 
-		population_trend_magnitude_average,
-	    population_trend_long_magnitude_average,
-	    range_trend_magnitude_average,
-	    range_trend_long_magnitude_average,
-	    spa_population_average
-	FROM
-		eub_birds 
-	WHERE
-		speciesname_cleaned LIKE $species 
-	AND season LIKE 'B'
-	";
-
-	$rows = $db -> select($sql);
-
-	foreach ($rows as $rowNumber => $arr)
-	{
-		$mapdata[$arr['country']] = $arr['population_average_size'];
-		$rawdata[$arr['country']] = $arr;
-	}
-
-}
-// SPECIES
-elseif ("species" == $typeDirty)
-{
-	$sql = "SELECT * FROM eub_birds WHERE speciesname_cleaned LIKE $species AND season LIKE 'B' AND country LIKE 'FI' LIMIT 1";
-
-	$rows = $db -> select($sql);
-	$data = $rows[0];
-}
-// ALL
-else
-{
-	$sql = "SELECT * FROM eub_birds WHERE speciesname_cleaned LIKE $species AND season LIKE 'B'";
-	$rows = $db -> select($sql);
-	$data = $rows;
+	$mapdata[$arr['country']] = $arr['population_average_size'];
+	$rawdata[$arr['country']] = $arr;
 }
 
 //echo $sql; // debug
