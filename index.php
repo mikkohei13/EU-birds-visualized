@@ -15,7 +15,15 @@ $json = file_get_contents($baseURL . "db/?species=" . $speciesDirty);
 $data = json_decode($json, TRUE);
 
 $rawData = $data['rawdata'];
-$mapJson = json_encode($data['mapdata']);
+
+if ("population" == $_GET['type'])
+{
+  $mapJson = json_encode($data['population']);
+}
+elseif ("density" == $_GET['type'])
+{
+  $mapJson = json_encode($data['density']);
+}
 
 //print_r ($speciesData); // debug
 
@@ -107,6 +115,32 @@ function speciesSelect()
   foreach ($speciesArray as $key => $value)
   {
     if ($key == $_GET['species'])
+    {
+      $selected = " selected";
+    }
+    else
+    {
+      $selected = "";
+    }
+    $html .= "<option value=\"$key\"$selected>$value</option>";
+  }
+  $html .= "</select>";
+  
+  echo $html;
+}
+
+function typeSelect()
+{
+  $html = "<select name=\"type\">";
+  $speciesArray['Parus major'] = 'Parus major';
+  $speciesArray['Parus caeruleus'] = 'Parus caeruleus';
+  $speciesArray['Parus cristatus'] = 'Parus cristatus';
+  $speciesArray['Parus ater'] = 'Parus ater';
+  $speciesArray['Cygnus cygnus'] = 'Cygnus cygnus';
+
+  foreach ($speciesArray as $key => $value)
+  {
+    if ($key == $_GET['type'])
     {
       $selected = " selected";
     }
