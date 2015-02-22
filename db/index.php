@@ -26,7 +26,7 @@ $landArea['HU'] = 93.0;
 $landArea['BG'] = 110.9;
 $landArea['EL'] = 132.0;
 $landArea['RO'] = 238.4;
-$landArea['UK'] = 248.5;
+$landArea['GB'] = 248.5; // changed from UK to GB
 $landArea['IT'] = 302.1;
 $landArea['PL'] = 312.7;
 $landArea['FI'] = 338.4;
@@ -81,6 +81,11 @@ $rows = $db -> select($sql);
 
 foreach ($rows as $rowNumber => $arr)
 {
+	if ("UK" == $arr['country'])
+	{
+		$arr['country'] = "GB";
+	}
+
 	$population[$arr['country']] = (int) $arr['population_average_size'];
 
 	$densityPer100km2 = $arr['population_average_size'] / ($landArea[$arr['country']] * 10);
