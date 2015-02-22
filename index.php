@@ -123,12 +123,8 @@ elseif ("density" == $_GET['type'])
 function speciesSelect()
 {
   $html = "<select name=\"species\">";
-  
-  $speciesArray['Parus major'] = 'Parus major';
-  $speciesArray['Parus caeruleus'] = 'Parus caeruleus';
-  $speciesArray['Parus cristatus'] = 'Parus cristatus';
-  $speciesArray['Parus ater'] = 'Parus ater';
-  $speciesArray['Cygnus cygnus'] = 'Cygnus cygnus';
+
+  require_once "species_list.php";  
 
   foreach ($speciesArray as $key => $value)
   {
