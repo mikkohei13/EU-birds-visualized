@@ -11,7 +11,7 @@ require_once 'convert_fields.php';
 
 echo "<pre>";
 
-$xml = simplexml_load_file("data/CY_birds_reports-14331-13918.xml");
+$xml = simplexml_load_file("data/SE_birds_reports.xml");
 
 // Create dat
 $i = 0;
