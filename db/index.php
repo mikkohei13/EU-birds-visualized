@@ -4,7 +4,8 @@ header('Content-Type: application/json; charset=utf-8');
 //exit("DEEBEE");
 
 
-// Land areas: http://europa.eu/about-eu/facts-figures/living/index_en.htm
+// Land areas * 1000 km2
+// Source: http://europa.eu/about-eu/facts-figures/living/index_en.htm
 $landArea['MT'] = 0.3;
 $landArea['LU'] = 2.6;
 $landArea['CY'] = 9.3;
@@ -81,8 +82,10 @@ $rows = $db -> select($sql);
 foreach ($rows as $rowNumber => $arr)
 {
 	$population[$arr['country']] = (int) $arr['population_average_size'];
-	$density[$arr['country']] = round(($arr['population_average_size'] / $landArea[$arr['country']]), 1);
-	
+
+	$densityPer100km2 = $arr['population_average_size'] / ($landArea[$arr['country']] * 10);
+	$density[$arr['country']] = round($densityPer100km2, 1);
+
 	$rawdata[$arr['country']] = $arr;
 }
 

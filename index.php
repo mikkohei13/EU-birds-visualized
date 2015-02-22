@@ -52,12 +52,15 @@ elseif ("density" == $_GET['type'])
     <body>
 
       <div id="main">
-        <h1><?php echo $rawData['FI']['common_speciesname'] . " (<em>" . $rawData['FI']['speciesname'] . "</em>)"; ?></h1>
+        <h1><?php echo $rawData['FI']['common_speciesname'] . " (<em>" . $rawData['FI']['speciesname_cleaned'] . "</em>)"; ?></h1>
         <h2><?php echo "AT: " . $rawData['AT']['common_speciesname'] . ", BG: " . $rawData['BG']['common_speciesname']; ?></h2>
 
         <div id="content">
           <form action="./">
-            <?php speciesSelect(); ?>
+            <?php
+            speciesSelect();
+            typeSelect();
+            ?>
             <input id="submit" type="submit" value="Submit">
           </form>
 
@@ -132,11 +135,8 @@ function speciesSelect()
 function typeSelect()
 {
   $html = "<select name=\"type\">";
-  $speciesArray['Parus major'] = 'Parus major';
-  $speciesArray['Parus caeruleus'] = 'Parus caeruleus';
-  $speciesArray['Parus cristatus'] = 'Parus cristatus';
-  $speciesArray['Parus ater'] = 'Parus ater';
-  $speciesArray['Cygnus cygnus'] = 'Cygnus cygnus';
+  $speciesArray['population'] = 'Population';
+  $speciesArray['density'] = 'Density per 100 km2';
 
   foreach ($speciesArray as $key => $value)
   {
