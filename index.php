@@ -43,10 +43,20 @@ $mapJson = json_encode($data['mapdata']);
     </head>
     <body>
 
+      <div id="main">
         <h1><?php echo $rawData['FI']['common_speciesname'] . " (<em>" . $rawData['FI']['speciesname'] . "</em>)"; ?></h1>
         <h2><?php echo "AT: " . $rawData['AT']['common_speciesname'] . ", BG: " . $rawData['BG']['common_speciesname']; ?></h2>
 
-        <div id="map" style="width: 778px; height: 900px; border: 4px solid #165878;"></div>
+        <div id="content">
+          <form action="./">
+            <?php speciesSelect(); ?>
+            <input id="submit" type="submit" value="Submit">
+          </form>
+
+          <div id="map"></div>
+        </div>
+      </div>
+
         <script>
 
         var data = <?php echo $mapJson; ?>;
@@ -82,3 +92,33 @@ $mapJson = json_encode($data['mapdata']);
         </script>
     </body>
 </html>
+
+<?php
+
+function speciesSelect()
+{
+  $html = "<select name=\"species\">";
+  $speciesArray['Parus major'] = 'Parus major';
+  $speciesArray['Parus caeruleus'] = 'Parus caeruleus';
+  $speciesArray['Parus cristatus'] = 'Parus cristatus';
+  $speciesArray['Parus ater'] = 'Parus ater';
+  $speciesArray['Cygnus cygnus'] = 'Cygnus cygnus';
+
+  foreach ($speciesArray as $key => $value)
+  {
+    if ($key == $_GET['species'])
+    {
+      $selected = " selected";
+    }
+    else
+    {
+      $selected = "";
+    }
+    $html .= "<option value=\"$key\"$selected>$value</option>";
+  }
+  $html .= "</select>";
+  
+  echo $html;
+}
+
+?>
