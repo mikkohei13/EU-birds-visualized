@@ -52,20 +52,34 @@ elseif ("density" == $_GET['type'])
     <body>
 
       <div id="main">
+
+        <div class="adtest" style="width: 728px; height: 90px;">leaderboard</div>
+
         <h1><?php echo $rawData['FI']['common_speciesname'] . " (<em>" . $rawData['FI']['speciesname_cleaned'] . "</em>)"; ?></h1>
         <h2><?php echo "AT: " . $rawData['AT']['common_speciesname'] . ", BG: " . $rawData['BG']['common_speciesname']; ?></h2>
 
         <div id="content">
-          <form action="./">
-            <?php
-            speciesSelect();
-            typeSelect();
-            ?>
-            <input id="submit" type="submit" value="Submit">
-          </form>
+
+          <div id="tools">
+            <form action="./">
+              <?php
+              speciesSelect();
+              typeSelect();
+              ?>
+              <input id="submit" type="submit" value="Submit">
+            </form>
+
+<!--            <div class="adtest" style="width: 300px; height: 250px;">medium rectangle</div>-->
+            <div class="adtest" style="width: 300px; height: 600px;">half page</div>
+
+          </div>
 
           <div id="map"></div>
+
         </div>
+
+        <div class="adtest" style="width: 980px; height: 120px;">panorama</div>
+
       </div>
 
         <script>
@@ -109,6 +123,7 @@ elseif ("density" == $_GET['type'])
 function speciesSelect()
 {
   $html = "<select name=\"species\">";
+  
   $speciesArray['Parus major'] = 'Parus major';
   $speciesArray['Parus caeruleus'] = 'Parus caeruleus';
   $speciesArray['Parus cristatus'] = 'Parus cristatus';
