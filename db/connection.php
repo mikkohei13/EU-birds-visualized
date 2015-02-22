@@ -31,6 +31,12 @@ class Db {
 			// Handle error - notify administrator, log to a file, show an error screen, etc.
 			return false;
 		}
+
+		// Added by MH http://php.net/manual/en/mysqli.set-charset.php
+		if (! self::$connection->set_charset("utf8")) {
+    		return false;
+		}
+		
 		return self::$connection;
 	}
 	
