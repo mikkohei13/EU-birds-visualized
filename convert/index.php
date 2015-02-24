@@ -11,9 +11,9 @@ require_once 'convert_fields.php';
 
 echo "<pre>";
 
-$xml = simplexml_load_file("data/SE_birds_reports.xml");
+$xml = simplexml_load_file("data/DE_birds_reports.xml");
 
-// Create dat
+// Create data
 $i = 0;
 foreach($xml->bird_report as $bird)
 {

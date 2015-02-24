@@ -2,6 +2,12 @@
 /*
 Tooltipeistä undefined pois
 h1 ja h2
+lajilista uusiksi, suom. nimet mukaan ja engl.
+duplikaatit?
+CY?
+hajautuvatko parimäärät eri alalaljeille? tsekkaa ainakin Larus fuscus
+pop ja density-taulukot sivulla
+lähteet mukaan
 */
 
 require_once("db/index.php");
