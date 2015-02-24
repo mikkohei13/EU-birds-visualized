@@ -1,5 +1,5 @@
 <?php
-header('Content-Type: application/json; charset=utf-8');
+header('Content-Type: text/html; charset=utf-8');
 //header('Content-Type: text/plain; charset=utf-8');
 //exit("DEEBEE");
 
@@ -46,7 +46,7 @@ $species = str_replace("%20", " ", $species);
 
 $mapdata = Array();
 
-
+// Raw data from database
 $sql = "
 SELECT
 	country, 
@@ -79,28 +79,23 @@ AND season LIKE 'B'
 
 $rows = $db -> select($sql);
 
+// Goes through the data and creates derived data
 foreach ($rows as $rowNumber => $arr)
 {
+	// Exceptions
 	if ("UK" == $arr['country'])
 	{
 		$arr['country'] = "GB";
 	}
 
+	// Population
 	$population[$arr['country']] = (int) $arr['population_average_size'];
 
+	// Density
 	$densityPer100km2 = $arr['population_average_size'] / ($landArea[$arr['country']] * 10);
 	$density[$arr['country']] = round($densityPer100km2, 1);
 
+	// Raw data
 	$rawdata[$arr['country']] = $arr;
 }
 
-//echo $sql; // debug
-
-$data['rawdata'] = $rawdata;
-$data['population'] = $population;
-$data['density'] = $density;
-
-$json = json_encode($data);
-echo $json;
-
-//print_r ($rows);

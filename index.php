@@ -6,23 +6,15 @@ TODO:
 
 */
 
-$speciesDirty = str_replace(" ", "%20", $_GET['species']);
-
-$baseURLtemp = explode("?", $_SERVER["REQUEST_URI"]);
-$baseURL = "http://" . $_SERVER["SERVER_NAME"] . $baseURLtemp[0];
-
-$json = file_get_contents($baseURL . "db/?species=" . $speciesDirty);
-$data = json_decode($json, TRUE);
-
-$rawData = $data['rawdata'];
+require_once("db/index.php");
 
 if ("population" == $_GET['type'])
 {
-  $mapJson = json_encode($data['population']);
+  $mapJson = json_encode($population);
 }
 elseif ("density" == $_GET['type'])
 {
-  $mapJson = json_encode($data['density']);
+  $mapJson = json_encode($density);
 }
 
 //print_r ($speciesData); // debug
@@ -55,8 +47,8 @@ elseif ("density" == $_GET['type'])
 
         <div class="adtest" style="width: 728px; height: 90px;">leaderboard</div>
 
-        <h1><?php echo $rawData['FI']['common_speciesname'] . " (<em>" . $rawData['FI']['speciesname_cleaned'] . "</em>)"; ?></h1>
-        <h2><?php echo "AT: " . $rawData['AT']['common_speciesname'] . ", BG: " . $rawData['BG']['common_speciesname']; ?></h2>
+        <h1><?php echo $rawdata['FI']['common_speciesname'] . " (<em>" . $rawdata['FI']['speciesname_cleaned'] . "</em>)"; ?></h1>
+        <h2><?php echo "AT: " . $rawdata['AT']['common_speciesname'] . ", BG: " . $rawdata['BG']['common_speciesname']; ?></h2>
 
         <div id="content">
 
