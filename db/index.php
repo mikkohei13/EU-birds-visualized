@@ -82,6 +82,8 @@ $rows = $db -> select($sql);
 // Goes through the data and creates derived data
 foreach ($rows as $rowNumber => $arr)
 {
+	print_r ($arr);
+
 	// Exceptions
 	if ("UK" == $arr['country'])
 	{
@@ -89,7 +91,10 @@ foreach ($rows as $rowNumber => $arr)
 	}
 
 	// Population
-	$population[$arr['country']] = (int) $arr['population_average_size'];
+	if ($arr['population_average_size'] > 0)
+	{
+		$population[$arr['country']] = $arr['population_average_size'];
+	}
 
 	// Density
 	$densityPer100km2 = $arr['population_average_size'] / ($landArea[$arr['country']] * 10);
@@ -99,3 +104,4 @@ foreach ($rows as $rowNumber => $arr)
 	$rawdata[$arr['country']] = $arr;
 }
 
+print_r ($population);
