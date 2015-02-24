@@ -82,7 +82,7 @@ $rows = $db -> select($sql);
 // Goes through the data and creates derived data
 foreach ($rows as $rowNumber => $arr)
 {
-	print_r ($arr);
+//	print_r ($arr);
 
 	// Exceptions
 	if ("UK" == $arr['country'])
@@ -104,4 +104,17 @@ foreach ($rows as $rowNumber => $arr)
 	$rawdata[$arr['country']] = $arr;
 }
 
-print_r ($population);
+// Add zeroes to those EU countries, which are missing
+foreach ($landArea as $country => $area)
+{
+	if (! isset($population[$country]))
+	{
+		$population[$country] = 0;
+	}
+	if (! isset($density[$country]))
+	{
+		$density[$country] = 0;
+	}
+}
+
+//print_r ($population);

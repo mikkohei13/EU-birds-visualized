@@ -1,9 +1,7 @@
 <?php
 /*
-TODO:
-- data security w/ soeciesDirty
-- UTF-8 database connection? (BG names etc.)
-
+Tooltipeistä undefined pois
+h1 ja h2
 */
 
 require_once("db/index.php");
@@ -47,8 +45,8 @@ elseif ("density" == $_GET['type'])
 
         <div class="adtest" style="width: 728px; height: 90px;">leaderboard</div>
 
-        <h1><?php echo $rawdata['FI']['common_speciesname'] . " (<em>" . $rawdata['FI']['speciesname_cleaned'] . "</em>)"; ?></h1>
-        <h2><?php echo "AT: " . $rawdata['AT']['common_speciesname'] . ", BG: " . $rawdata['BG']['common_speciesname']; ?></h2>
+        <h1><?php // echo $rawdata['FI']['common_speciesname'] . " (<em>" . $rawdata['FI']['speciesname_cleaned'] . "</em>)"; ?></h1>
+        <h2><?php // echo "AT: " . $rawdata['AT']['common_speciesname'] . ", BG: " . $rawdata['BG']['common_speciesname']; ?></h2>
 
         <div id="content">
 
@@ -82,10 +80,16 @@ elseif ("density" == $_GET['type'])
             $('#map').vectorMap({
                 map: 'europe_merc_en',
                 backgroundColor: '#a5cbd7', //'#4b96af',
+                regionStyle: {
+                  initial: {
+                  fill: '#95bbc7'
+                }
+                },
                 series: {
                     regions: [{
                         values: data,
                         scale: ['#e6e696', '#003700'],
+//                        scale: ['#ffffff', '#003700'],
                         normalizeFunction: 'linear'
                     }]
                 },
