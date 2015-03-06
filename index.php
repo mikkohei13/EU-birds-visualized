@@ -3,9 +3,11 @@
 
 h1 ja h2
 duplikaatit?
-CY?
 pop ja density-taulukot sivulla
 lähteet mukaan
+select2
+etusivun virheilmot pois
+Kreikan data? Ranskan ja Tsekin datan päivitys?
 
 suomenkielinen lajilista tietokantaan, join automaattisesti; näin uusien importien mukana mahdollisesti tulevat uudet lajit tulevat valikkoon mukaan heti 
 */
@@ -15,10 +17,12 @@ require_once("db/index.php");
 if ("population" == $_GET['type'])
 {
   $mapJson = @json_encode($population);
+  $tableData = $population;
 }
 elseif ("density" == $_GET['type'])
 {
   $mapJson = @json_encode($density);
+  $tableData = $density;
 }
 
 //print_r ($speciesData); // debug
@@ -62,8 +66,11 @@ elseif ("density" == $_GET['type'])
               speciesSelect();
               typeSelect();
               ?>
-              <input id="submit" type="submit" value="Submit">
+              <input id="submit" type="submit" value="Valitse">
             </form>
+
+
+            <?php dataTable(); ?>
 
 <!--            <div class="adtest" style="width: 300px; height: 250px;">medium rectangle</div>-->
             <div class="adtest" style="width: 300px; height: 600px;">half page</div>
@@ -112,8 +119,6 @@ elseif ("density" == $_GET['type'])
         });
         </script>
 
-
-
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
             (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
@@ -157,8 +162,8 @@ function speciesSelect()
 function typeSelect()
 {
   $html = "<select name=\"type\">";
-  $speciesArray['population'] = 'Population';
-  $speciesArray['density'] = 'Density per 100 km2';
+  $speciesArray['population'] = 'Pesiviä pareja';
+  $speciesArray['density'] = 'Tiheys paria/100 km²';
 
   foreach ($speciesArray as $key => $value)
   {
@@ -174,6 +179,26 @@ function typeSelect()
   }
   $html .= "</select>";
   
+  echo $html;
+}
+
+function dataTable()
+{
+  global $tableData;
+  global $fiName;
+
+  arsort($tableData);
+
+  $html = "<table id=\"datatable\">";
+  foreach ($tableData as $countryCode => $value)
+  {
+    $html .= "<tr>";
+    $html .= "<td class=\"cou\">" . $fiName[$countryCode] . "</td>";
+    $html .= "<td class=\"num\">" . number_format($value, $decimals = 0, $dec_point = ",", $thousands_sep = ".") . "</td>";
+    $html .= "</tr>";
+  } 
+
+  $html .= "</table>";
   echo $html;
 }
 

@@ -216,8 +216,19 @@ form select, form input
 {
     background-color: #fcc;
 }
-
-
+#datatable
+{
+    margin: 1em;
+}
+#datatable td 
+{
+    padding: 0.1em 0.3em;
+    border: 1px solid #a5cbd7;
+}
+.num
+{
+    text-align: right;
+}
 
 
 
