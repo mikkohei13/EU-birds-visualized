@@ -24,7 +24,7 @@ $landArea['HR'] = 87.7;
 $landArea['PT'] = 92.2;
 $landArea['HU'] = 93.0;
 $landArea['BG'] = 110.9;
-$landArea['EL'] = 132.0;
+$landArea['GR'] = 132.0; // changed from EL
 $landArea['RO'] = 238.4;
 $landArea['GB'] = 248.5; // changed from UK to GB
 $landArea['IT'] = 302.1;
@@ -35,6 +35,35 @@ $landArea['SE'] = 438.6;
 $landArea['ES'] = 506.0;
 $landArea['FR'] = 632.8;
 
+// names
+$fiName['MT'] = "Malta";
+$fiName['LU'] = "Luxemburg";
+$fiName['CY'] = "Kypros";
+$fiName['SI'] = "Slovenia";
+$fiName['BE'] = "Belgia";
+$fiName['NL'] = "Alankomaat";
+$fiName['DK'] = "Tanska";
+$fiName['EE'] = "Viro";
+$fiName['SK'] = "Slovakia";
+$fiName['LV'] = "Latvia";
+$fiName['LT'] = "Liettua";
+$fiName['IE'] = "Irlanti";
+$fiName['CZ'] = "Tšekki";
+$fiName['AT'] = "Itävalta";
+$fiName['HR'] = "Kroatia";
+$fiName['PT'] = "Portugal";
+$fiName['HU'] = "Unkari";
+$fiName['BG'] = "Bulgaria";
+$fiName['GR'] = "Kreikka";
+$fiName['RO'] = "Romania";
+$fiName['GB'] = "Iso-Britannia";
+$fiName['IT'] = "Italia";
+$fiName['PL'] = "Puola";
+$fiName['FI'] = "Suomi";
+$fiName['DE'] = "Saksa";
+$fiName['SE'] = "Ruotsi";
+$fiName['ES'] = "Espanja";
+$fiName['FR'] = "Ranska";
 
 require_once "connection.php";
 
@@ -84,10 +113,14 @@ foreach ($rows as $rowNumber => $arr)
 {
 //	print_r ($arr);
 
-	// Exceptions
+	// Exceptions: change counry codes used by EU to those used by jVectorMap
 	if ("UK" == $arr['country'])
 	{
 		$arr['country'] = "GB";
+	}
+	if ("EL" == $arr['country'])
+	{
+		$arr['country'] = "GR";
 	}
 
 	// Population
