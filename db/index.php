@@ -73,7 +73,7 @@ SELECT
 FROM
 	eub_birds 
 WHERE
-	speciesname_cleaned LIKE $species 
+	speciesname LIKE $species 
 AND season LIKE 'B'
 ";
 
