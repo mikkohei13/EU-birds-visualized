@@ -14,11 +14,11 @@ require_once("db/index.php");
 
 if ("population" == $_GET['type'])
 {
-  $mapJson = json_encode($population);
+  $mapJson = @json_encode($population);
 }
 elseif ("density" == $_GET['type'])
 {
-  $mapJson = json_encode($density);
+  $mapJson = @json_encode($density);
 }
 
 //print_r ($speciesData); // debug
@@ -82,14 +82,15 @@ elseif ("density" == $_GET['type'])
 
         var data = <?php echo $mapJson; ?>;
 
-        $(function(){
+        $(function() {
+
             $('#map').vectorMap({
                 map: 'europe_merc_en',
                 backgroundColor: '#a5cbd7', //'#4b96af',
                 regionStyle: {
                   initial: {
-                  fill: '#95bbc7'
-                }
+                    fill: '#95bbc7'
+                  }
                 },
                 series: {
                     regions: [{
@@ -100,9 +101,14 @@ elseif ("density" == $_GET['type'])
                     }]
                 },
                 onRegionTipShow: function(e, el, code) {
-                    el.html(el.html()+': '+data[code]);
+                    if(typeof data[code] === 'undefined'){
+                      data[code] = 'ei tietoa / no data';
+                    };
+                    el.html(el.html() + ': ' + data[code]);
                 }
             });
+
+
         });
         </script>
 
