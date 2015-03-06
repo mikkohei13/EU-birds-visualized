@@ -1,13 +1,13 @@
 <?php
 /*
-Tooltipeistä undefined pois
+
 h1 ja h2
-lajilista uusiksi, suom. nimet mukaan ja engl.
 duplikaatit?
 CY?
-hajautuvatko parimäärät eri alalaljeille? tsekkaa ainakin Larus fuscus
 pop ja density-taulukot sivulla
 lähteet mukaan
+
+suomenkielinen lajilista tietokantaan, join automaattisesti; näin uusien importien mukana mahdollisesti tulevat uudet lajit tulevat valikkoon mukaan heti 
 */
 
 require_once("db/index.php");
@@ -132,11 +132,14 @@ function speciesSelect()
 {
   $html = "<select name=\"species\">";
 
-  require_once "species_list.php";  
+  $speciesArray = file("species.txt");
 
-  foreach ($speciesArray as $key => $value)
+  foreach ($speciesArray as $key => $names)
   {
-    if ($key == $_GET['species'])
+    $names = trim($names);
+    $parts = explode("\t", $names);
+
+    if ($parts[1] == $_GET['species'])
     {
       $selected = " selected";
     }
@@ -144,7 +147,7 @@ function speciesSelect()
     {
       $selected = "";
     }
-    $html .= "<option value=\"$key\"$selected>$value</option>";
+    $html .= "<option value=\"" . $parts[1] . "\"$selected>" . $parts[2] . " (" . $parts[1] . ")</option>";
   }
   $html .= "</select>";
   
