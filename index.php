@@ -3,7 +3,6 @@
 
 h1 ja h2
 duplikaatit?
-pop ja density-taulukot sivulla
 lähteet mukaan
 select2
 etusivun virheilmot pois
@@ -52,6 +51,8 @@ elseif ("density" == $_GET['type'])
     <body>
 
       <div id="main">
+
+        <h1><?php nameHeading(); ?></h1>
 
         <div class="adtest" style="width: 728px; height: 90px;">leaderboard</div>
 
@@ -200,6 +201,23 @@ function dataTable()
 
   $html .= "</table>";
   echo $html;
+}
+
+function nameHeading()
+{
+  $speciesArray = file("species.txt");
+
+  foreach ($speciesArray as $key => $names)
+  {
+    $names = trim($names);
+    $parts = explode("\t", $names);
+
+    if ($parts[1] == $_GET['species'])
+    {
+      $nameHeading = $parts[2] . " (" . $parts[1] . ")";
+    }
+  }
+  echo $nameHeading;
 }
 
 ?>
