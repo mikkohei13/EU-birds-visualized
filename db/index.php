@@ -105,6 +105,7 @@ foreach ($rows as $rowNumber => $arr)
 }
 
 // Add zeroes to those EU countries, which are missing
+/*
 foreach ($landArea as $country => $area)
 {
 	if (! isset($population[$country]))
@@ -116,5 +117,7 @@ foreach ($landArea as $country => $area)
 		$density[$country] = 0;
 	}
 }
+*/
+
 
 //print_r ($population);
