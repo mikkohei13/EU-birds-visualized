@@ -1,9 +1,10 @@
 <?php
 /*
 
-h1 ja h2
+mittayksiköt, esim. Apus apus Irlanti
+
 duplikaatit?
-lähteet mukaan
+
 select2
 etusivun virheilmot pois
 Kreikan data? Ranskan ja Tsekin datan päivitys?
@@ -14,7 +15,11 @@ suomenkielinen lajilista tietokantaan, join automaattisesti; näin uusien import
 require_once("db/index.php");
 
 $nameHeading = "";
+$totalHTML = "";
+$proTable = proTable();
+
 nameHeading();
+
 
 if ("population" == $_GET['type'])
 {
@@ -35,8 +40,8 @@ elseif ("density" == $_GET['type'])
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title></title>
-        <meta name="description" content="">
+        <title><?php echo strip_tags($nameHeading); ?> - levinneisyys ja määrä Euroopassa - biomi.org</title>
+        <meta name="description" content="Lajin <?php echo strip_tags($nameHeading); ?> levinneisyys ja runsaus Euroopassa lintudirektiivin raportointidatan perusteella.">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
@@ -77,6 +82,8 @@ elseif ("density" == $_GET['type'])
               <input id="submit" type="submit" value="Valitse">
             </form>
 
+            <?php echo $totalHTML; ?>
+
             <p id="more">
               Lisää tästä lajista (EIONET):<br />
               <a href="http://bd.eionet.europa.eu/article12/summary?period=1&subject=<?php speciesCode(); ?>">Tilastoja</a><br />
@@ -94,7 +101,7 @@ elseif ("density" == $_GET['type'])
 
         </div>
 
-        <?php proTable(); ?>
+        <?php echo $proTable; ?>
 
         <div class="adtest" style="width: 980px; height: 120px;">panorama</div>
 
@@ -252,6 +259,8 @@ function proTable()
   global $rawdata;
   global $density;
   global $fiName;
+  global $totalHTML;
+  $totalAmount = 0;
 
 //  arsort($rawdata);
 
@@ -285,6 +294,7 @@ function proTable()
     if ("FI" == $countryCode)
     {
       $html .= "<tr class=\"suomi\">";
+      $FIamount = $arr['population_average_size'];
     }
     else
     {
@@ -309,12 +319,16 @@ function proTable()
 
 //    $html .= "<td class=\"num\">" . number_format($value, $decimals = 0, $dec_point = ",", $thousands_sep = ".") . "</td>";
     $html .= "</tr>";
+
+    $totalAmount = $totalAmount + $arr['population_average_size'];
   } 
 
   $html .= "</table>";
   $html .= "<p>+ = lisääntyvä, - = vähentyvä, 0 = stabiili, F = vaihteleva, x = tuntematon</p>";
 
-  echo $html;
+  $totalHTML .= "<p>Yhteensä " . format_int($totalAmount) . " paria, joita Suomen osuus " . number_format(($FIamount / $totalAmount * 100), 1, ",", ".") . " %</p>";
+
+  return $html;
 }
 
 function format_int($number)
