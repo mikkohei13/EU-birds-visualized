@@ -84,6 +84,8 @@ elseif ("density" == $_GET['type'])
 
         <div class="adtest" style="width: 980px; height: 120px;">panorama</div>
 
+        <?php wikitext(); ?>
+
       </div>
 
         <script>
@@ -218,6 +220,13 @@ function nameHeading()
     }
   }
   echo $nameHeading;
+}
+
+function wikitext()
+{
+  $wiki = file_get_contents("http://fi.wikipedia.org/wiki/Talitiainen?action=render");
+  $wiki = strip_tags($wiki);
+  echo $wiki;
 }
 
 ?>
