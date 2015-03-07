@@ -84,8 +84,15 @@ SELECT
 
 	speciesname_cleaned,
 	population_average_size, 
+
+	population_trend,
 	population_trend_magnitude_average,
+	population_trend_period,
+
+	population_trend_long,
     population_trend_long_magnitude_average,
+	population_trend_long_period,
+
     range_trend_magnitude_average,
     range_trend_long_magnitude_average,
     spa_population_average,
