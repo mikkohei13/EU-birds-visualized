@@ -152,5 +152,6 @@ foreach ($landArea as $country => $area)
 }
 */
 
+//ksort($rawdata);
 
-//print_r ($population);
+//print_r ($rawdata);

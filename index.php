@@ -71,7 +71,7 @@ elseif ("density" == $_GET['type'])
             </form>
 
 
-            <?php dataTable(); ?>
+            <?php // dataTable(); ?>
 
 <!--            <div class="adtest" style="width: 300px; height: 250px;">medium rectangle</div>-->
             <div class="adtest" style="width: 300px; height: 600px;">half page</div>
@@ -81,6 +81,8 @@ elseif ("density" == $_GET['type'])
           <div id="map"></div>
 
         </div>
+
+        <?php proTable(); ?>
 
         <div class="adtest" style="width: 980px; height: 120px;">panorama</div>
 
@@ -218,6 +220,53 @@ function nameHeading()
     }
   }
   echo $nameHeading;
+}
+
+
+function proTable()
+{
+  global $rawdata;
+  global $density;
+  global $fiName;
+
+//  arsort($rawdata);
+
+  $html = "<table id=\"datatable\">";
+  $html .= "<tr>";
+  $html .= "<th rowspan=\"2\">Maa</th>";
+  $html .= "<th colspan=\"3\">Pesiviä pareja</th>";
+  $html .= "<th rowspan=\"2\">Tiheys paria/100km<sup>2</sup></th>";
+  $html .= "<th rowspan=\"2\">Arvio ajalta</th>";
+  $html .= "<th rowspan=\"2\">Lähde</th>";
+  $html .= "</tr>";
+  $html .= "<tr>";
+  $html .= "<th>min</th>";
+  $html .= "<th>ka.</th>";
+  $html .= "<th>max</th>";
+  $html .= "</tr>";
+
+  foreach ($rawdata as $countryCode => $arr)
+  {
+    $html .= "<tr>";
+    $html .= "<td>" . $fiName[$countryCode] . "</td>";
+    $html .= "<td class=\"num\">" . format_int($arr['population_minimum_size']) . "</td>";
+    $html .= "<td class=\"num\">" . format_int($arr['population_average_size']) . "</td>";
+    $html .= "<td class=\"num\">" . format_int($arr['population_maximum_size']) . "</td>";
+    $html .= "<td class=\"num\">" . number_format($density[$countryCode], 1, ",", ".") . "</td>";
+    $html .= "<td>" . $arr['population_date'] . "</td>";
+    $html .= "<td>" . $arr['population_sources'] . "</td>";
+
+//    $html .= "<td class=\"num\">" . number_format($value, $decimals = 0, $dec_point = ",", $thousands_sep = ".") . "</td>";
+    $html .= "</tr>";
+  } 
+
+  $html .= "</table>";
+  echo $html;
+}
+
+function format_int($number)
+{
+  return number_format($number, 0, ",", ".");
 }
 
 ?>
