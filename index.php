@@ -214,7 +214,7 @@ function nameHeading()
 
     if ($parts[1] == $_GET['species'])
     {
-      $nameHeading = $parts[2] . " (" . $parts[1] . ")";
+      $nameHeading = ucfirst($parts[2]) . " (<em>" . $parts[1] . "</em>)";
     }
   }
   echo $nameHeading;
