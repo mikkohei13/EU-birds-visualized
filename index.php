@@ -1,15 +1,18 @@
 <?php
 /*
 
-mittayksiköt, esim. Apus apus Irlanti
+MUST
+- mittayksiköt, esim. Apus apus Irlanti. Tsekkaa myös helmipöllö: fi vs. se
+- etusivulle lajilista
 
-duplikaatit?
+SHOULD
+- duplikaatit?
+- suomenkielinen lajilista tietokantaan, join automaattisesti; näin uusien importien mukana mahdollisesti tulevat uudet lajit tulevat valikkoon mukaan heti 
 
-select2
-etusivun virheilmot pois
-Kreikan data? Ranskan ja Tsekin datan päivitys?
+NICE
+- select2
+- Kreikan data? Ranskan ja Tsekin datan päivitys?
 
-suomenkielinen lajilista tietokantaan, join automaattisesti; näin uusien importien mukana mahdollisesti tulevat uudet lajit tulevat valikkoon mukaan heti 
 */
 
 require_once("db/index.php");
@@ -261,6 +264,7 @@ function proTable()
   global $fiName;
   global $totalHTML;
   $totalAmount = 0;
+  $FIamount = 0;
 
 //  arsort($rawdata);
 
@@ -326,7 +330,7 @@ function proTable()
   $html .= "</table>";
   $html .= "<p>+ = lisääntyvä, - = vähentyvä, 0 = stabiili, F = vaihteleva, x = tuntematon</p>";
 
-  $totalHTML .= "<p>Yhteensä " . format_int($totalAmount) . " paria, joita Suomen osuus " . number_format(($FIamount / $totalAmount * 100), 1, ",", ".") . " %</p>";
+  $totalHTML .= "<p>Yhteensä " . format_int($totalAmount) . " paria, joita Suomessa " . number_format(($FIamount / $totalAmount * 100), 1, ",", ".") . " %</p>";
 
   return $html;
 }
