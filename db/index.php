@@ -51,7 +51,7 @@ $fiName['IE'] = "Irlanti";
 $fiName['CZ'] = "Tšekki";
 $fiName['AT'] = "Itävalta";
 $fiName['HR'] = "Kroatia";
-$fiName['PT'] = "Portugal";
+$fiName['PT'] = "Portugali";
 $fiName['HU'] = "Unkari";
 $fiName['BG'] = "Bulgaria";
 $fiName['GR'] = "Kreikka";
@@ -110,7 +110,9 @@ FROM
 	eub_birds 
 WHERE
 	speciesname LIKE $species 
-AND season LIKE 'B'
+	AND season LIKE 'B'
+ORDER BY
+	population_average_size DESC
 ";
 
 $rows = $db -> select($sql);

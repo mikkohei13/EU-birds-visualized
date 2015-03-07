@@ -251,7 +251,14 @@ function proTable()
 
   foreach ($rawdata as $countryCode => $arr)
   {
-    $html .= "<tr>";
+    if ("FI" == $countryCode)
+    {
+      $html .= "<tr class=\"suomi\">";
+    }
+    else
+    {
+      $html .= "<tr>";
+    }
     $html .= "<td>" . $fiName[$countryCode] . "</td>";
     $html .= "<td class=\"num\">" . format_int($arr['population_minimum_size']) . "</td>";
     $html .= "<td class=\"num\">" . format_int($arr['population_average_size']) . "</td>";
