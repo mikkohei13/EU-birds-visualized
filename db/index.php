@@ -81,6 +81,7 @@ SELECT
 	country, 
 	speciesname,
 	common_speciesname,
+	speciescode,
 
 	speciesname_cleaned,
 	population_average_size, 

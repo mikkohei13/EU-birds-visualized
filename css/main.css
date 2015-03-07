@@ -297,3 +297,26 @@ form select, form input
     color: #fff;
 }
 
+h3
+{
+    margin: 0;
+}
+
+.adtest
+{
+    display: none;
+}
+
+
+.pos {
+    background-color: #98e292;
+}
+
+.neg {
+    background-color: #e29298;
+}
+
+.flu {
+    background-color: #e0e292;
+}
+

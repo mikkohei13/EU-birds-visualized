@@ -13,6 +13,9 @@ suomenkielinen lajilista tietokantaan, join automaattisesti; näin uusien import
 
 require_once("db/index.php");
 
+$nameHeading = "";
+nameHeading();
+
 if ("population" == $_GET['type'])
 {
   $mapJson = @json_encode($population);
@@ -56,7 +59,7 @@ elseif ("density" == $_GET['type'])
 
         <div id="heading">
           <h2>Pesimälinnusto EU:n jäsenmaissa</h2>
-          <h1><?php nameHeading(); ?></h1>
+          <h1><?php echo $nameHeading; ?></h1>
           <p>Tämä sivusto perustuu valtioiden vuonna <a href="http://bd.eionet.europa.eu/activities/Reporting/Article_12/Reports_2013/Member_State_Deliveries">2013 EU:lle raportoimiin lintudirektiivin vaatimiin tietoihin</a>. On huomattava että tiedot ovat paikoin puutteellisia: kaikki valtiot eivät ole toimittaneet tietoa kaikista pesimälajeistaan.</p>
         </div>
 
@@ -65,6 +68,7 @@ elseif ("density" == $_GET['type'])
         <div id="content">
 
           <div id="tools">
+            <h3>Valitse laji</h3>
             <form action="./">
               <?php
               speciesSelect();
@@ -73,6 +77,11 @@ elseif ("density" == $_GET['type'])
               <input id="submit" type="submit" value="Valitse">
             </form>
 
+            <p id="more">
+              Lisää tästä lajista (EIONET):<br />
+              <a href="http://bd.eionet.europa.eu/article12/summary?period=1&subject=<?php speciesCode(); ?>">Tilastoja</a><br />
+              <a href="http://discomap.eea.europa.eu/map/Filtermap/?webmap=e95b9a26ab00484ca15caed7213fa57c&zoomto=True&CCode=<?php speciesCode(); ?>">Levinneisyyskartta</a>
+            </p>
 
             <?php // dataTable(); ?>
 
@@ -220,6 +229,8 @@ function dataTable()
 
 function nameHeading()
 { 
+  global $nameHeading;
+
   $speciesArray = file("species.txt");
 
   foreach ($speciesArray as $key => $names)
@@ -230,9 +241,9 @@ function nameHeading()
     if ($parts[1] == $_GET['species'])
     {
       $nameHeading = ucfirst($parts[2]) . " (<em>" . $parts[1] . "</em>)";
+      return;
     }
   }
-  echo $nameHeading;
 }
 
 
@@ -248,8 +259,8 @@ function proTable()
   $html .= "<tr>";
   $html .= "<th rowspan=\"2\">Maa</th>";
   $html .= "<th colspan=\"5\">Pesiviä pareja</th>";
-  $html .= "<th colspan=\"3\">Pitkä trendi</th>";
-  $html .= "<th colspan=\"3\">Lyhyt trendi</th>";
+  $html .= "<th colspan=\"3\">Pitkän ajan trendi</th>";
+  $html .= "<th colspan=\"3\">Lyhyen ajan trendi</th>";
   $html .= "<th rowspan=\"2\">Lähde</th>";
   $html .= "</tr>";
   $html .= "<tr>";
@@ -259,12 +270,12 @@ function proTable()
   $html .= "<th>tiheys/100km<sup>2</sup></th>";
   $html .= "<th>ajalla</th>";
 
-  $html .= "<th>+/-</th>";
-  $html .= "<th>%</th>";
+  $html .= "<th>trendi</th>";
+  $html .= "<th>suuruus</th>";
   $html .= "<th>ajalla</th>";
 
-  $html .= "<th>+/-</th>";
-  $html .= "<th>%</th>";
+  $html .= "<th>trendi</th>";
+  $html .= "<th>suuruus</th>";
   $html .= "<th>ajalla</th>";
 
   $html .= "</tr>";
@@ -286,11 +297,11 @@ function proTable()
     $html .= "<td class=\"num\">" . number_format($density[$countryCode], 1, ",", ".") . "</td>";
     $html .= "<td>" . $arr['population_date'] . "</td>";
 
-    $html .= "<td class=\"num\">" . $arr['population_trend'] . "</td>";
+    $html .= "<td class=\"" . trendClass($arr['population_trend']) . "\">" . trim($arr['population_trend'], "nu") . "</td>";
     $html .= "<td class=\"num\">" . $arr['population_trend_magnitude_average'] . "</td>";
     $html .= "<td>" . $arr['population_trend_period'] . "</td>";
 
-    $html .= "<td class=\"num\">" . $arr['population_trend_long'] . "</td>";
+    $html .= "<td class=\"" . trendClass($arr['population_trend_long']) . "\">" . trim($arr['population_trend_long'], "nu") . "</td>";
     $html .= "<td class=\"num\">" . $arr['population_trend_long_magnitude_average'] . "</td>";
     $html .= "<td>" . $arr['population_trend_long_period'] . "</td>";
 
@@ -301,12 +312,44 @@ function proTable()
   } 
 
   $html .= "</table>";
+  $html .= "<p>+ = lisääntyvä, - = vähentyvä, 0 = stabiili, F = vaihteleva, x = tuntematon</p>";
+
   echo $html;
 }
 
 function format_int($number)
 {
   return number_format($number, 0, ",", ".");
+}
+
+
+function speciesCode()
+{
+  global $rawdata;
+  $first = current($rawdata);
+  $code = $first['speciescode'];
+  echo $code;
+}
+
+function trendClass($trend)
+{
+  if ("+" == $trend)
+  {
+    $class = "pos";
+  }
+  elseif ("-" == $trend)
+  {
+    $class = "neg";
+  }
+  elseif ("F" == $trend)
+  {
+    $class = "flu";
+  }
+  else
+  {
+    $class = "";
+  }
+  return $class;
 }
 
 ?>
