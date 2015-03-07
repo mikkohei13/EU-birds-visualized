@@ -5,6 +5,15 @@ MUST
 - mittayksiköt, esim. Apus apus Irlanti. Tsekkaa myös helmipöllö: fi vs. se
 - etusivulle lajilista
 
+p - number of pairs
+b - number of breeding females
+c - number of calling/lekking males
+i - number of individuals
+m - males
+
+n = null (POISTA NULLIT TIETOKANNASTA ja KONVERTTERISTA)
+
+
 SHOULD
 - duplikaatit?
 - suomenkielinen lajilista tietokantaan, join automaattisesti; näin uusien importien mukana mahdollisesti tulevat uudet lajit tulevat valikkoon mukaan heti 
@@ -330,7 +339,7 @@ function proTable()
   $html .= "</table>";
   $html .= "<p>+ = lisääntyvä, - = vähentyvä, 0 = stabiili, F = vaihteleva, x = tuntematon</p>";
 
-  $totalHTML .= "<p>Yhteensä " . format_int($totalAmount) . " paria, joita Suomessa " . number_format(($FIamount / $totalAmount * 100), 1, ",", ".") . " %</p>";
+  $totalHTML .= "<p>Yhteensä " . format_int($totalAmount) . " paria, joista Suomessa " . number_format(($FIamount / $totalAmount * 100), 2, ",", ".") . " %</p>";
 
   return $html;
 }

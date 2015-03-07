@@ -106,7 +106,9 @@ SELECT
 
     range_surface_area,
     range_period,
-    range_sources
+    range_sources,
+
+    population_size_unit 
 FROM
 	eub_birds 
 WHERE
@@ -131,6 +133,14 @@ foreach ($rows as $rowNumber => $arr)
 	if ("EL" == $arr['country'])
 	{
 		$arr['country'] = "GR";
+	}
+
+	// individuals into pairs
+	if ("i" == $arr['population_size_unit'])
+	{
+		$arr['population_average_size'] = $arr['population_average_size'] / 2;
+		$arr['population_minimum_size'] = $arr['population_minimum_size'] / 2;
+		$arr['population_maximum_size'] = $arr['population_maximum_size'] / 2;
 	}
 
 	// Population
