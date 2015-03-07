@@ -28,7 +28,7 @@ elseif ("density" == $_GET['type'])
 
 ?>
 <!doctype html>
-<html class="no-js" lang="">
+<html class="no-js" lang="fi">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -52,12 +52,15 @@ elseif ("density" == $_GET['type'])
 
       <div id="main">
 
-        <h1><?php nameHeading(); ?></h1>
+        <a href="/" id="homelink"><span>biomi.org</span></a>
+
+        <div id="heading">
+          <h2>Pesimälinnusto EU:n jäsenmaissa</h2>
+          <h1><?php nameHeading(); ?></h1>
+          <p>Tämä sivusto perustuu valtioiden vuonna <a href="http://bd.eionet.europa.eu/activities/Reporting/Article_12/Reports_2013/Member_State_Deliveries">2013 EU:lle raportoimiin lintudirektiivin vaatimiin tietoihin</a>. On huomattava että tiedot ovat paikoin puutteellisia: kaikki valtiot eivät ole toimittaneet tietoa kaikista pesimälajeistaan.</p>
+        </div>
 
         <div class="adtest" style="width: 728px; height: 90px;">leaderboard</div>
-
-        <h1><?php // echo $rawdata['FI']['common_speciesname'] . " (<em>" . $rawdata['FI']['speciesname_cleaned'] . "</em>)"; ?></h1>
-        <h2><?php // echo "AT: " . $rawdata['AT']['common_speciesname'] . ", BG: " . $rawdata['BG']['common_speciesname']; ?></h2>
 
         <div id="content">
 
@@ -86,6 +89,13 @@ elseif ("density" == $_GET['type'])
 
         <div class="adtest" style="width: 980px; height: 120px;">panorama</div>
 
+      </div>
+
+      <div id="footer">
+        <a href="http://bd.eionet.europa.eu/activities/Reporting/Article_12/Reports_2013/Member_State_Deliveries">Datalähde: Eionet - European Topic Centre on Biological Diversity,
+        Birds Directive, Article 12, Reports 2013</a>
+        <a href="">Mikko Heikkinen/biomi.org</a>
+        <a href="https://github.com/mikkohei13/EU-birds-visualized">Source on Github</a>
       </div>
 
         <script>
@@ -133,8 +143,11 @@ elseif ("density" == $_GET['type'])
         </script>
     </body>
 </html>
+<link href='http://fonts.googleapis.com/css?family=Istok+Web:400,700,400italic' rel='stylesheet' type='text/css'>
 
 <?php
+
+// -------------------------------------------------------------------------------------
 
 function speciesSelect()
 {
@@ -155,7 +168,7 @@ function speciesSelect()
     {
       $selected = "";
     }
-    $html .= "<option value=\"" . $parts[1] . "\"$selected>" . $parts[2] . " (" . $parts[1] . ")</option>";
+    $html .= "<option value=\"" . $parts[1] . "\"$selected>" . ucfirst($parts[2]) . " (" . $parts[1] . ")</option>";
   }
   $html .= "</select>";
   
@@ -246,12 +259,12 @@ function proTable()
   $html .= "<th>tiheys/100km<sup>2</sup></th>";
   $html .= "<th>ajalla</th>";
 
-  $html .= "<th>trendi</th>";
-  $html .= "<th>voimakkuus</th>";
+  $html .= "<th>+/-</th>";
+  $html .= "<th>%</th>";
   $html .= "<th>ajalla</th>";
 
-  $html .= "<th>trendi</th>";
-  $html .= "<th>voimakkuus</th>";
+  $html .= "<th>+/-</th>";
+  $html .= "<th>%</th>";
   $html .= "<th>ajalla</th>";
 
   $html .= "</tr>";
@@ -275,11 +288,11 @@ function proTable()
 
     $html .= "<td class=\"num\">" . $arr['population_trend'] . "</td>";
     $html .= "<td class=\"num\">" . $arr['population_trend_magnitude_average'] . "</td>";
-    $html .= "<td class=\"num\">" . $arr['population_trend_period'] . "</td>";
+    $html .= "<td>" . $arr['population_trend_period'] . "</td>";
 
     $html .= "<td class=\"num\">" . $arr['population_trend_long'] . "</td>";
     $html .= "<td class=\"num\">" . $arr['population_trend_long_magnitude_average'] . "</td>";
-    $html .= "<td class=\"num\">" . $arr['population_trend_long_period'] . "</td>";
+    $html .= "<td>" . $arr['population_trend_long_period'] . "</td>";
 
     $html .= "<td>" . $arr['population_sources'] . "</td>";
 
