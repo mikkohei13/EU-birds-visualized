@@ -235,6 +235,7 @@ function proTable()
   $html .= "<tr>";
   $html .= "<th rowspan=\"2\">Maa</th>";
   $html .= "<th colspan=\"5\">Pesiviä pareja</th>";
+  $html .= "<th colspan=\"3\">Pitkä trendi</th>";
   $html .= "<th colspan=\"3\">Lyhyt trendi</th>";
   $html .= "<th rowspan=\"2\">Lähde</th>";
   $html .= "</tr>";
@@ -244,9 +245,15 @@ function proTable()
   $html .= "<th>max</th>";
   $html .= "<th>tiheys/100km<sup>2</sup></th>";
   $html .= "<th>ajalla</th>";
+
   $html .= "<th>trendi</th>";
   $html .= "<th>voimakkuus</th>";
   $html .= "<th>ajalla</th>";
+
+  $html .= "<th>trendi</th>";
+  $html .= "<th>voimakkuus</th>";
+  $html .= "<th>ajalla</th>";
+
   $html .= "</tr>";
 
   foreach ($rawdata as $countryCode => $arr)
@@ -265,9 +272,15 @@ function proTable()
     $html .= "<td class=\"num\">" . format_int($arr['population_maximum_size']) . "</td>";
     $html .= "<td class=\"num\">" . number_format($density[$countryCode], 1, ",", ".") . "</td>";
     $html .= "<td>" . $arr['population_date'] . "</td>";
+
     $html .= "<td class=\"num\">" . $arr['population_trend'] . "</td>";
     $html .= "<td class=\"num\">" . $arr['population_trend_magnitude_average'] . "</td>";
     $html .= "<td class=\"num\">" . $arr['population_trend_period'] . "</td>";
+
+    $html .= "<td class=\"num\">" . $arr['population_trend_long'] . "</td>";
+    $html .= "<td class=\"num\">" . $arr['population_trend_long_magnitude_average'] . "</td>";
+    $html .= "<td class=\"num\">" . $arr['population_trend_long_period'] . "</td>";
+
     $html .= "<td>" . $arr['population_sources'] . "</td>";
 
 //    $html .= "<td class=\"num\">" . number_format($value, $decimals = 0, $dec_point = ",", $thousands_sep = ".") . "</td>";
