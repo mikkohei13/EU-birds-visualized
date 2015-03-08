@@ -2,17 +2,7 @@
 /*
 
 MUST
-- mittayksiköt, esim. Apus apus Irlanti. Tsekkaa myös helmipöllö: fi vs. se
-- etusivulle lajilista
-
-p - number of pairs
-b - number of breeding females
-c - number of calling/lekking males
-i - number of individuals
-m - males
-
-n = null (POISTA NULLIT TIETOKANNASTA ja KONVERTTERISTA)
-
+- Tsekkaa helmipöllö: fi vs. se
 
 SHOULD
 - duplikaatit?
@@ -21,6 +11,16 @@ SHOULD
 NICE
 - select2
 - Kreikan data? Ranskan ja Tsekin datan päivitys?
+
+DOC
+p - number of pairs
+b - number of breeding females
+c - number of calling/lekking males
+i - number of individuals
+m - males
+
+n = null (POISTA NULLIT TIETOKANNASTA ja KONVERTTERISTA)
+
 
 */
 
@@ -31,18 +31,6 @@ $totalHTML = "";
 $proTable = proTable();
 
 nameHeading();
-
-
-if ("population" == $_GET['type'])
-{
-  $mapJson = @json_encode($population);
-  $tableData = $population;
-}
-elseif ("density" == $_GET['type'])
-{
-  $mapJson = @json_encode($density);
-  $tableData = $density;
-}
 
 //print_r ($speciesData); // debug
 
@@ -74,6 +62,21 @@ elseif ("density" == $_GET['type'])
 
         <a href="/" id="homelink"><span>biomi.org</span></a>
 
+        <?php
+        if (isset($_GET['species']) && isset($_GET['type']))
+        {
+          if ("population" == $_GET['type'])
+          {
+            $mapJson = @json_encode($population);
+            $tableData = $population;
+          }
+          elseif ("density" == $_GET['type'])
+          {
+            $mapJson = @json_encode($density);
+            $tableData = $density;
+          }
+        ?>
+
         <div id="heading">
           <h2>Pesimälinnusto EU:n jäsenmaissa</h2>
           <h1><?php echo $nameHeading; ?></h1>
@@ -98,8 +101,8 @@ elseif ("density" == $_GET['type'])
 
             <p id="more">
               Lisää tästä lajista (EIONET):<br />
-              <a href="http://bd.eionet.europa.eu/article12/summary?period=1&subject=<?php speciesCode(); ?>">Tilastoja</a><br />
-              <a href="http://discomap.eea.europa.eu/map/Filtermap/?webmap=e95b9a26ab00484ca15caed7213fa57c&zoomto=True&CCode=<?php speciesCode(); ?>">Levinneisyyskartta</a>
+              <a href="http://bd.eionet.europa.eu/article12/summary?period=1&subject=<?php echo $speciesCode; ?>">Tilastoja</a><br />
+              <a href="http://discomap.eea.europa.eu/map/Filtermap/?webmap=e95b9a26ab00484ca15caed7213fa57c&zoomto=True&CCode=<?php echo $speciesCode; ?>">Levinneisyyskartta</a>
             </p>
 
             <?php // dataTable(); ?>
@@ -118,6 +121,20 @@ elseif ("density" == $_GET['type'])
         <div class="adtest" style="width: 980px; height: 120px;">panorama</div>
 
       </div>
+
+      <?php
+      }
+      else
+      {
+        ?>
+        <div id="heading">
+          <h1>Pesimälinnusto EU:n jäsenmaissa</h1>
+          <p>Tämä sivusto perustuu valtioiden vuonna <a href="http://bd.eionet.europa.eu/activities/Reporting/Article_12/Reports_2013/Member_State_Deliveries">2013 EU:lle raportoimiin lintudirektiivin vaatimiin tietoihin</a>. On huomattava että tiedot ovat paikoin puutteellisia: kaikki valtiot eivät ole toimittaneet tietoa kaikista pesimälajeistaan.</p>
+        </div>
+        <?php
+        speciesList();
+      }
+      ?>
 
       <div id="footer">
         <a href="http://bd.eionet.europa.eu/activities/Reporting/Article_12/Reports_2013/Member_State_Deliveries">Datalähde: Eionet - European Topic Centre on Biological Diversity,
@@ -349,14 +366,20 @@ function format_int($number)
   return number_format($number, 0, ",", ".");
 }
 
-
+/*
 function speciesCode()
 {
   global $rawdata;
-  $first = current($rawdata);
+  print_r ($rawdata);
+
+  $first = current(reset($rawdata));
+  echo "///"; print_r($first);
+  exit();
+
   $code = $first['speciescode'];
   echo $code;
 }
+*/
 
 function trendClass($trend)
 {
@@ -370,7 +393,7 @@ function trendClass($trend)
   }
   elseif ("F" == $trend)
   {
-    $class = "flu";
+    $class = "fluct";
   }
   else
   {
@@ -378,5 +401,26 @@ function trendClass($trend)
   }
   return $class;
 }
+
+
+
+function speciesList()
+{
+  $html = "<ul>";
+
+  $speciesArray = file("species.txt");
+
+  foreach ($speciesArray as $key => $names)
+  {
+    $names = trim($names);
+    $parts = explode("\t", $names);
+
+    $html .= "<li><a href=\"?species=" . $parts[1] . "&type=population\">" . ucfirst($parts[2]) . " (" . $parts[1] . ")</a></li>";
+  }
+  $html .= "</ul>";
+  
+  echo $html;
+}
+
 
 ?>

@@ -125,6 +125,8 @@ foreach ($rows as $rowNumber => $arr)
 {
 //	print_r ($arr);
 
+	$speciesCode = $arr['speciescode'];
+
 	// Exceptions: change counry codes used by EU to those used by jVectorMap
 	if ("UK" == $arr['country'])
 	{
