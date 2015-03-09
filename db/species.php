@@ -1,8 +1,4 @@
 <?php
-header('Content-Type: text/html; charset=utf-8');
-//header('Content-Type: text/plain; charset=utf-8');
-//exit("DEEBEE");
-
 
 // Land areas * 1000 km2
 // Source: http://europa.eu/about-eu/facts-figures/living/index_en.htm
@@ -159,21 +155,3 @@ foreach ($rows as $rowNumber => $arr)
 	$rawdata[$arr['country']] = $arr;
 }
 
-// Add zeroes to those EU countries, which are missing
-/*
-foreach ($landArea as $country => $area)
-{
-	if (! isset($population[$country]))
-	{
-		$population[$country] = 0;
-	}
-	if (! isset($density[$country]))
-	{
-		$density[$country] = 0;
-	}
-}
-*/
-
-//ksort($rawdata);
-
-//print_r ($rawdata);
