@@ -51,7 +51,7 @@ else
         <title><?php echo strip_tags($nameHeading); ?> - levinneisyys ja määrä Euroopassa - biomi.org</title>
         <meta name="description" content="Lajin <?php echo strip_tags($nameHeading); ?> levinneisyys ja runsaus Euroopassa lintudirektiivin raportointidatan perusteella.">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <link rel="apple-touch-icon" href="../apple-touch-icon.png">
 
         <link rel="stylesheet" href="css/vendor/normalize.min.css">
         <link rel="stylesheet" href="css/vendor/jquery-jvectormap-2.0.1.css">
