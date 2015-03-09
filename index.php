@@ -3,7 +3,7 @@ header('Content-Type: text/html; charset=utf-8');
 /*
 
 MUST
-- Tsekkaa helmipöllö: fi vs. se
+
 
 SHOULD
 - duplikaatit?
@@ -13,6 +13,11 @@ NICE
 - tilastosivun taulukkoon kokonaisparimäärä toisella kyselyllä
 - select2
 - Kreikan data? Ranskan ja Tsekin datan päivitys?
+- talvilinnut
+- range
+- monipuolisempi trendien tilastointi
+- trendit kartalle
+- engl. versio
 
 DOC
 p - number of pairs
