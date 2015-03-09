@@ -29,7 +29,7 @@ function echoMainHTML()
   ?>
 
   <div id="heading">
-    <h2>Pesimälinnusto EU:n jäsenmaissa</h2>
+    <h2><a href="./">Pesimälinnusto EU:n jäsenmaissa</a></h2>
     <h1><?php echo $nameHeading; ?></h1>
     <p>Tämä sivusto perustuu valtioiden vuonna <a href="http://bd.eionet.europa.eu/activities/Reporting/Article_12/Reports_2013/Member_State_Deliveries">2013 EU:lle raportoimiin lintudirektiivin vaatimiin tietoihin</a>. On huomattava että tiedot ovat paikoin puutteellisia: kaikki valtiot eivät ole toimittaneet tietoa kaikista pesimälajeistaan.</p>
   </div>
