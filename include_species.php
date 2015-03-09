@@ -208,8 +208,8 @@ function proTable()
   $html .= "<tr>";
   $html .= "<th rowspan=\"2\">Maa</th>";
   $html .= "<th colspan=\"5\">Pesiviä pareja</th>";
-  $html .= "<th colspan=\"3\">Pitkän ajan trendi</th>";
   $html .= "<th colspan=\"3\">Lyhyen ajan trendi</th>";
+  $html .= "<th colspan=\"3\">Pitkän ajan trendi</th>";
   $html .= "<th rowspan=\"2\">Lähde</th>";
   $html .= "</tr>";
   $html .= "<tr>";
