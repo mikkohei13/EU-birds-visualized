@@ -63,6 +63,8 @@ $fiName['FR'] = "Ranska";
 
 require_once "connection.php";
 
+$rawdata = Array();
+
 $db = new Db();
 
 // Quote and escape form submitted values

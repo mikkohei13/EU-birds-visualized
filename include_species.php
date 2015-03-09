@@ -266,7 +266,12 @@ function proTable()
   $html .= "</table>";
   $html .= "<p>+ = lisääntyvä, - = vähentyvä, 0 = stabiili, F = vaihteleva, x = tuntematon</p>";
 
-  $totalHTML .= "<p>Yhteensä " . format_int($totalAmount) . " paria, joista Suomessa " . number_format(($FIamount / $totalAmount * 100), 2, ",", ".") . " %</p>";
+  $totalHTML .= "<p>Yhteensä " . format_int($totalAmount) . " paria";
+  if ($totalAmount > 0)
+  {
+    $totalHTML .= ", joista Suomessa " . number_format(($FIamount / $totalAmount * 100), 2, ",", ".") . " %";
+  }
+  $totalHTML .= "</p>";
 
   return $html;
 }

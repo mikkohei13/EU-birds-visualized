@@ -6,12 +6,10 @@ MUST
 - Tsekkaa helmipöllö: fi vs. se
 
 SHOULD
-- Error: http://127.0.0.1:4567/tests/EU-birds/?species=Numenius+arquata+orientalis&type=population
 - duplikaatit?
 - suomenkielinen lajilista tietokantaan, join automaattisesti; näin uusien importien mukana mahdollisesti tulevat uudet lajit tulevat valikkoon mukaan heti 
 
 NICE
-- etusivulle kokonaisparimäärä toisella kyselyllä
 - tilastosivun taulukkoon kokonaisparimäärä toisella kyselyllä
 - select2
 - Kreikan data? Ranskan ja Tsekin datan päivitys?
