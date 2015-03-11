@@ -79,7 +79,7 @@ else
           <a href="https://github.com/mikkohei13/EU-birds-visualized">Source on Github</a>
         </div>
 
-        <?php include("ja/analytics.php"); ?>
+        <?php include("js/analytics.php"); ?>
     </body>
 </html>
 <link href='http://fonts.googleapis.com/css?family=Istok+Web:400,700,400italic' rel='stylesheet' type='text/css'>
