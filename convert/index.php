@@ -29,9 +29,12 @@ foreach($xml->bird_report as $bird)
 		$name = trim((string) $name);
 		$value = trim((string) $value);
 
-		if (empty($value))
+		if (isset($_GET['nullify']))
 		{
-			$value = "null";
+			if (empty($value))
+			{
+				$value = "null";
+			}
 		}
 		$data[$i][$name] = $value;
 
@@ -49,7 +52,7 @@ foreach($xml->bird_report as $bird)
 	$i++;
 }
 
-//print_r ($data);
+print_r ($data); // exit(); // debug
 
 // Create SQL INSERT
 foreach ($data as $no => $speciesData)
