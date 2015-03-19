@@ -18,7 +18,7 @@ foreach($files as $filename)
 {
   parseFile($filename);
 
-  break; // debug
+//  break; // debug; parses only one file
 }
 
 function parseFile($filename)
@@ -66,7 +66,7 @@ function parseFile($filename)
 		$i++;
 	}
 
-	print_r ($data); // exit(); // debug
+//	print_r ($data); // exit(); // debug
 
 //	createInserts($data);
 	createCSV($data);
